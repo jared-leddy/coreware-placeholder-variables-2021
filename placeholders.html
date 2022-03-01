@@ -1,0 +1,142 @@
+Placeholders are now more generalized and codified. You can use the following placeholders in any page or template (including the javascript code, CSS code or Analytics code):
+
+user.first_name
+user.last_name
+user.display_name
+user.address_1
+user.address_2
+user.city
+user.state
+user.city_state
+user.postal_code
+user.country_name
+user.email_address
+user.user_id
+user.contact_id
+user.user_group_codes
+user.user_groups
+user.category_codes
+user.categories
+user.categories_json
+user.business_name
+client.last_name
+client.display_name
+client.address_1
+client.address_2
+client.city
+client.state
+client.city_state
+client.postal_code
+client.country_name
+client.email_address
+client.contact_id
+client.business_name
+pageDescription
+pageTitle
+currentYear
+currentDate
+userDisplayName
+pageLinkUrl
+userImageFilename
+
+You can also select specific rows of data to be used as placeholders. Currently (and we might add more later), you can do products, locations, designations, product_manufacturers, and FFL. You specify the record by doing one of these in any place that you can use placeholders:
+
+For products:
+
+%key_value:product_id:29483%
+%key_value:product_code:FJWOIEF%
+%key_value:upc_code:234919384923%
+
+You can then use any field in products as a placeholder, including sale_price and inventory_quantity, such as %product.description% or %product.sale_price%
+
+%key_value:location_id:29483%
+%key_value:location_code:FJWOIEF%
+
+You can then use any field in locations, such as %location.business_name% or %location.metro_area% or %location.description%
+
+%key_value:designation_id:29483%
+%key_value:designation_code:FJWOIEF%
+
+Any field in designations.
+
+%key_value:product_manufacturer_id:29483%
+%key_value:product_manufacturer_code:FJWOIEF%
+
+Any field in product_manufacturers.
+
+%key_value:license_number:1-48-003-01-4F-49248%
+%key_value:license_lookup:1-48-49248%
+
+Any field in FFL table.
+
+You can also add pseudo code to only include content if a placeholder HAS or value or does not have a value:
+
+%if_has_value:user.first_name%
+    <p>Greetings %user.first_name%</p>
+%endif%
+
+%if_has_value:product.inventory_quantity%
+    <p>We have this product in stock</p>
+%endif%
+
+%if_has_no_value:product.inventory_quantity%
+    <p>This product is out of stock</p>
+%endif%
+
+Of course, you can do this multiple times. So, you could have the following in a page/template:
+
+<table>
+<tr>
+    <th>Description</th>
+    <th>UPC</th>
+    <th>Sale Price</th>
+</tr>
+%key_value:product_code:PRODUCT_9324%
+%if_has_value:product.inventory_quantity%
+<tr>
+    <th>%product.description%</th>
+    <th>%product.upc_code%</th>
+    <th>%product.sale_price%</th>
+</tr>
+%endif%
+%key_value:product_code:PRODUCT_23984%
+%if_has_value:product.inventory_quantity%
+<tr>
+    <th>%product.description%</th>
+    <th>%product.upc_code%</th>
+    <th>%product.sale_price%</th>
+</tr>
+%endif%
+%key_value:product_code:PRODUCT_385975%
+%if_has_value:product.inventory_quantity%
+<tr>
+    <th>%product.description%</th>
+    <th>%product.upc_code%</th>
+    <th>%product.sale_price%</th>
+</tr>
+%endif%
+%key_value:product_code:PRODUCT_928324%
+%if_has_value:product.inventory_quantity%
+<tr>
+    <th>%product.description%</th>
+    <th>%product.upc_code%</th>
+    <th>%product.sale_price%</th>
+</tr>
+%endif%
+%key_value:product_code:PRODUCT_53922%
+%if_has_value:product.inventory_quantity%
+<tr>
+    <th>%product.description%</th>
+    <th>%product.upc_code%</th>
+    <th>%product.sale_price%</th>
+</tr>
+%endif%
+%key_value:product_code:PRODUCT_58392%
+%if_has_value:product.inventory_quantity%
+<tr>
+    <th>%product.description%</th>
+    <th>%product.upc_code%</th>
+    <th>%product.sale_price%</th>
+</tr>
+%endif%
+</table>
